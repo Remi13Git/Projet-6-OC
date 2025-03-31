@@ -1,0 +1,24 @@
+<div class="login-container">
+    <h2>Connexion</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="identifier">Email ou Nom d'utilisateur :</label>
+        <input id="identifier" type="text" formControlName="identifier">
+        <div *ngIf="loginForm.get('identifier')?.invalid && loginForm.get('identifier')?.touched">
+          Ce champ est requis.
+        </div>
+      </div>
+  
+      <div>
+        <label for="password">Mot de passe :</label>
+        <input id="password" type="password" formControlName="password">
+        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          Le mot de passe est requis.
+        </div>
+      </div>
+  
+      <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
+    </form>
+    <p>{{ message }}</p>
+  </div>
+  
