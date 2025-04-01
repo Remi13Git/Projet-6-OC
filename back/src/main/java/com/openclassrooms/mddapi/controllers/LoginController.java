@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,11 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openclassrooms.mddapi.dto.LoginRequest;
 import com.openclassrooms.mddapi.models.User;
 import com.openclassrooms.mddapi.repository.UserRepository;
+import com.openclassrooms.mddapi.security.JwtUtil;
 
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:4200")
 public class LoginController {
 
     @Autowired
@@ -30,25 +33,22 @@ public class LoginController {
         String identifier = loginRequest.getIdentifier();
         String password = loginRequest.getPassword();
 
-        // Recherche de l'utilisateur par email ou username
-        User user = null;
-        if(identifier.contains("@")) {
-            user = userRepository.findByEmail(identifier);
-        } else {
-            user = userRepository.findByUsername(identifier);
-        }
-        if (user == null) {
-            return ResponseEntity.badRequest().body("Utilisateur non trouvé");
+        User user = identifier.contains("@") ? userRepository.findByEmail(identifier) : userRepository.findByUsername(identifier);
+
+        if (user == null || !passwordEncoder.matches(password, user.getPassword())) {
+            return ResponseEntity.badRequest().body("Identifiants invalides");
         }
 
-        // Vérification du mot de passe
-        if (!passwordEncoder.matches(password, user.getPassword())) {
-            return ResponseEntity.badRequest().body("Mot de passe incorrect");
-        }
+        // Log avant la génération du token
+        System.out.println("Utilisateur connecté : " + user.getUsername());
 
-        // Si tout est OK, renvoyer une réponse de succès 
+        // Génération du JWT
+        String token = JwtUtil.generateToken(user.getUsername());
+
+        // Renvoi du token
         return ResponseEntity.ok(new HashMap<String, String>() {{
-            put("message", "Connexion réussie");
+            put("token", token);
         }});
-    }
+}
+
 }

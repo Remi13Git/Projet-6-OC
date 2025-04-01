@@ -1,0 +1,35 @@
+<div class="create-article-container">
+    <h2>Créer un nouvel article</h2>
+    <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="topic">Thème</label><br>
+        <select id="topic" formControlName="topicId">
+          <option value="" disabled selected>Sélectionnez un thème</option>
+          <option *ngFor="let topic of topics" [value]="topic.id">
+            {{ topic.name }}
+          </option>
+        </select>
+        <div *ngIf="articleForm.get('topicId')?.invalid && articleForm.get('topicId')?.touched">
+          Le thème est requis.
+        </div>
+      </div>
+      <div>
+        <label for="title">Titre de l'article</label><br>
+        <input id="title" type="text" formControlName="title">
+        <div *ngIf="articleForm.get('title')?.invalid && articleForm.get('title')?.touched">
+          Le titre est requis.
+        </div>
+      </div>
+      <div>
+        <label for="content">Contenu de l'article</label><br>
+        <textarea id="content" formControlName="content"></textarea>
+        <div *ngIf="articleForm.get('content')?.invalid && articleForm.get('content')?.touched">
+          Le contenu est requis.
+        </div>
+      </div>
+      <br> 
+      <button type="submit" [disabled]="articleForm.invalid">Créer l'article</button>
+    </form>
+    <p>{{ message }}</p>
+  </div>
+  

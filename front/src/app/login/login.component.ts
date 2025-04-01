@@ -20,21 +20,31 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    console.log('Formulaire soumis', this.loginForm.value); // Vérifie si la soumission du formulaire est bien déclenchée
+    console.log('Formulaire soumis', this.loginForm.value);
     if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.value).subscribe({
-        next: (response) => {
-          console.log('Réponse de connexion :', response); // Vérifie la réponse du backend
-          // Si la réponse est un objet contenant un message
-          this.message = response?.message || 'Connexion réussie'; // Affiche le message de succès
-          // Redirection vers la page d'accueil après une connexion réussie
-          this.router.navigate(['/']);
-        },
-        error: (error) => {
-          console.error('Erreur lors de la connexion :', error); // Log de l'erreur
-          this.message = error?.error || 'Erreur lors de la connexion';
-        }
-      });
+        this.authService.login(this.loginForm.value).subscribe({
+            next: (response) => {
+                console.log('Réponse de connexion :', response);
+                // Stocke le token dans le localStorage après une connexion réussie
+                if (response?.token) {
+                    localStorage.setItem('authToken', response.token); // Stocke le token
+                    this.message = response?.message || 'Connexion réussie';
+                } else {
+                    this.message = 'Erreur, aucun token reçu';
+                }
+                // Redirection après la connexion
+                this.router.navigate(['/']);
+            },
+            error: (error) => {
+                console.error('Erreur lors de la connexion :', error);
+                // Gérer l'erreur
+                if (error.status === 403) {
+                    this.message = 'Accès refusé, veuillez vérifier vos identifiants';
+                } else {
+                    this.message = error?.error?.message || 'Erreur lors de la connexion';
+                }
+            }
+        });
     }
   }
 }

@@ -1,5 +1,10 @@
-<div class="center">
-  <img src="/assets/logo_p6.png" alt="logo" />
-  <h1>Welcome to MDD</h1>
-  <button mat-raised-button color="primary" (click)="start()">Commencer</button>
+<div class="home-container">
+  <div class="grid-container">
+    <div class="article-card" *ngFor="let article of articles">
+      <h3>{{ article.title }}</h3>
+      <p class="article-date">{{ article.createdAt | date:'medium' }}</p>
+      <p class="article-author">{{ article.author.username }}</p>
+      <p class="article-content">{{ article.content }}</p>
+    </div>
+  </div>
 </div>
