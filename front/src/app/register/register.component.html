@@ -1,5 +1,11 @@
 <div class="register-container">
+    <!-- Flèche de retour à la page précédente -->
+    <button class="back-button" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    
     <h2>Inscription</h2>
+  
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div>
         <label for="username">Nom d'utilisateur</label><br>
@@ -8,7 +14,7 @@
           Le nom d'utilisateur est requis.
         </div>
       </div>
-
+  
       <div>
         <label for="email">Adresse e-mail</label><br>
         <input id="email" type="email" formControlName="email">
@@ -17,7 +23,6 @@
         </div>
       </div>
   
-  
       <div>
         <label for="password">Mot de passe</label><br>
         <input id="password" type="password" formControlName="password">
@@ -25,7 +30,8 @@
           Le mot de passe doit comporter au moins 8 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial.
         </div>
       </div>
-      <br> 
+      
+      <br>
       <button type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
     </form>
     <p>{{ message }}</p>

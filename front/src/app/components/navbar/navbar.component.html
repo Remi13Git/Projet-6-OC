@@ -1,11 +1,14 @@
-<nav class="navbar">
-    <ul>
-        <li><a routerLink="/register">Inscription</a></li>
-        <li><a routerLink="/login">Connexion</a></li>
-        <li><a routerLink="/">Articles</a></li>
-        <li><a routerLink="/profil">Profil</a></li>
-        <li><a routerLink="/topics">Thèmes</a></li>
-        <li><a routerLink="/create">Créer un article</a></li>
+<nav *ngIf="shouldDisplayNavbar" class="navbar">
+    <div class="logo">
+      <img src="/assets/logo_p6.png" alt="Logo" />
+    </div>
+    
+    <ul class="nav-items" *ngIf="shouldDisplayNavItems">
+      <li><a routerLink="/login" (click)="logout()"><span>Se déconnecter</span></a></li>
+      <li><a routerLink="/article">Articles</a></li>
+      <li><a routerLink="/topics">Thèmes</a></li>
+      <li><a routerLink="/profil"><mat-icon>account_circle</mat-icon></a></li>
+      
     </ul>
   </nav>
   

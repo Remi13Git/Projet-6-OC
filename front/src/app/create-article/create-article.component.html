@@ -1,5 +1,11 @@
 <div class="create-article-container">
+    <!-- Flèche de retour -->
+    <button class="back-btn" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+  
     <h2>Créer un nouvel article</h2>
+    
     <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
       <div>
         <label for="topic">Thème</label><br>
@@ -13,6 +19,7 @@
           Le thème est requis.
         </div>
       </div>
+  
       <div>
         <label for="title">Titre de l'article</label><br>
         <input id="title" type="text" formControlName="title">
@@ -20,6 +27,7 @@
           Le titre est requis.
         </div>
       </div>
+  
       <div>
         <label for="content">Contenu de l'article</label><br>
         <textarea id="content" formControlName="content"></textarea>

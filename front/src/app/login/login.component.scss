@@ -7,4 +7,26 @@
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     text-align: center; /* Centre le texte à l'intérieur */
+    position: relative;
   }
+  
+  .back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+
+    &:hover {
+        color: #7451eb; /* Changer la couleur au survol */
+      }
+  }
+
+  
+  .back-btn mat-icon {
+    font-size: 30px; /* Taille de l'icône */
+  }
+  
+  

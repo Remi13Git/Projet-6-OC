@@ -20,11 +20,9 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    console.log('Formulaire soumis', this.loginForm.value);
     if (this.loginForm.valid) {
         this.authService.login(this.loginForm.value).subscribe({
             next: (response) => {
-                console.log('Réponse de connexion :', response);
                 // Stocke le token dans le localStorage après une connexion réussie
                 if (response?.token) {
                     localStorage.setItem('authToken', response.token); // Stocke le token
@@ -33,7 +31,7 @@ export class LoginComponent {
                     this.message = 'Erreur, aucun token reçu';
                 }
                 // Redirection après la connexion
-                this.router.navigate(['/']);
+                this.router.navigate(['/article']);
             },
             error: (error) => {
                 console.error('Erreur lors de la connexion :', error);
@@ -46,5 +44,10 @@ export class LoginComponent {
             }
         });
     }
+  }
+
+  // Méthode pour revenir à la page précédente
+  goBack(): void {
+    this.router.navigate(['..']);
   }
 }

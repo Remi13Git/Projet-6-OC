@@ -20,11 +20,11 @@ export class AuthService {
   }
 
   saveToken(token: string) {
-    localStorage.setItem('jwt', token);
+    localStorage.setItem('authToken', token);
   }
 
   getToken(): string | null {
-    return localStorage.getItem('jwt');
+    return localStorage.getItem('authToken');
   }
 
   isLoggedIn(): boolean {
@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('jwt');
+    localStorage.removeItem('authToken');
   }
 
   getAuthHeaders(): HttpHeaders {

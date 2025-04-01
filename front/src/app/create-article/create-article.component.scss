@@ -8,3 +8,49 @@
     border-radius: 8px;
     text-align: center; /* Centre le texte à l'intérieur */
   }
+  
+  .back-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Espacement entre le bouton et le titre */
+  
+    .back-arrow {
+      margin-right: 8px; /* Espace entre la flèche et le texte */
+      font-size: 1.5rem;
+    }
+  
+    &:hover {
+      color: #7763C5;
+    }
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+    margin-top: 0;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  button[type="submit"] {
+    background-color: #7763C5;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+  
+    &:hover {
+      background-color: #5a4aa2;
+    }
+  }
+  
