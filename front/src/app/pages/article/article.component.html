@@ -1,0 +1,24 @@
+<div class="article-container">
+  <!-- Conteneur pour le bouton et les flèches de tri -->
+  <div class="top-container">
+    <!-- Bouton pour créer un article -->
+    <button class="create-article-btn" [routerLink]="['/create']">Créer un article</button>
+
+    <!-- Flèches pour trier -->
+    <div class="sort-container" (click)="toggleSortOrder()">
+      <span>Trier par</span>
+      <span class="arrow" [class.arrow-down]="sortOrder === 'desc'" [class.arrow-up]="sortOrder === 'asc'">
+        <i class="arrow-icon"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="grid-container">
+    <div class="article-card" *ngFor="let article of articles" (click)="goToArticle(article.id)">
+      <h3>{{ article.title }}</h3>
+      <p class="article-date">{{ article.createdAt | date:'medium' }}</p>
+      <p class="article-author">{{ article.author.username }}</p>
+      <p class="article-content">{{ article.content }}</p>
+    </div>
+  </div>
+</div>

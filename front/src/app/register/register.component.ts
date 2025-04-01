@@ -12,7 +12,7 @@ export class RegisterComponent {
   registerForm: FormGroup;
   message: string = '';
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { // Injection du Router
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
@@ -39,5 +39,10 @@ export class RegisterComponent {
         }
       });
     }
+  }
+
+  // Fonction pour revenir à la page précédente
+  goBack() {
+    this.router.navigate(['/']); // Redirige vers la page d'accueil ou la dernière page visitée
   }
 }

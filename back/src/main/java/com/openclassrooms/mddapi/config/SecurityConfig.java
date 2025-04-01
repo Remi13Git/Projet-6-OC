@@ -11,15 +11,18 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.openclassrooms.mddapi.security.AuthEntryPoint;
 import com.openclassrooms.mddapi.security.JwtFilter;
 
 @Configuration
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
+    private final AuthEntryPoint authEntryPoint;
 
-    public SecurityConfig(JwtFilter jwtFilter) {
+    public SecurityConfig(JwtFilter jwtFilter, AuthEntryPoint authEntryPoint) {
         this.jwtFilter = jwtFilter;
+        this.authEntryPoint = authEntryPoint;
     }
 
     @Bean
@@ -27,12 +30,12 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable()) // Désactive CSRF
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/register", "/api/login", "/api/profile/subscriptions", "/api/articles").permitAll() // Routes publiques
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/**").permitAll()
+                .requestMatchers("/api/register", "/api/login").permitAll() // Routes publiques
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Permet OPTIONS pour CORS
                 .anyRequest().authenticated() // Protège les autres routes
             )
+            .exceptionHandling(eh -> eh
+                .authenticationEntryPoint(authEntryPoint)) // Gère les utilisateurs non authentifiés
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // API REST sans session
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class); // Ajoute le filtre JWT
 
@@ -42,13 +45,15 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("http://localhost:4200"); // Autorise le frontend Angular
-        corsConfiguration.addAllowedHeader("*"); // Permet tous les en-têtes
-        corsConfiguration.addAllowedMethod("*"); // Permet toutes les méthodes HTTP
-        corsConfiguration.setAllowCredentials(true); // Permet les cookies
+        // Utilise addAllowedOriginPattern pour autoriser l'origine
+        corsConfiguration.addAllowedOriginPattern("http://localhost:4200");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.setAllowCredentials(true);
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfiguration); // Applique la configuration CORS à toutes les URL
+        source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
     }
-}
 
+}

@@ -1,0 +1,66 @@
+.article-container {
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    position: relative; /* Permet de positionner la flèche de retour relativement au conteneur */
+  }
+  
+  h1 {
+    color: #333;
+    margin-left: 40px; /* Espace pour la flèche */
+  }
+  
+  .back-button {
+    position: absolute;
+    top: 20px; /* Positionne la flèche de retour en haut */
+    left: 10px; /* Positionne la flèche à gauche */
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: black;
+    cursor: pointer;
+    
+    /* Applique un effet de survol */
+    &:hover {
+      color: #7451eb;
+    }
+  
+    mat-icon {
+      font-size: 30px; /* Taille de l'icône */
+    }
+  }
+  
+  p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  .content {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 5px;
+  }
+  
+  .comments-section {
+    margin-top: 40px;
+    background: #f7f7f7;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .comment-card {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  textarea {
+    width: 100%;
+    height: 100px;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  

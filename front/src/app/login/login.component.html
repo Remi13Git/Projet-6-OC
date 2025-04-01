@@ -1,5 +1,11 @@
 <div class="login-container">
+    <!-- Flèche de retour à la page précédente -->
+    <button class="back-btn" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon> <!-- Icône de retour (Material Icons) -->
+    </button>
+  
     <h2>Connexion</h2>
+    
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div>
         <label for="identifier">E-mail ou nom d'utilisateur</label><br>
