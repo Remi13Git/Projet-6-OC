@@ -1,0 +1,12 @@
+<div class="topics-container">
+    <div class="grid">
+      <div class="topic-card" *ngFor="let topic of topics">
+        <h3>{{ topic.name }}</h3>
+        <p>{{ topic.description }}</p>
+        <button (click)="onSubscribe(topic.id)" [disabled]="isSubscribed(topic.id)">
+          {{ isSubscribed(topic.id) ? "Déjà abonné" : "S'abonner" }}
+        </button>
+      </div>
+    </div>
+  </div>
+  

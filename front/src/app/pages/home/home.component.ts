@@ -1,16 +1,30 @@
 import { Component, OnInit } from '@angular/core';
+import { ArticleService } from '../../services/article.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
+  articles: any[] = [];
+  message: string = '';
 
-  ngOnInit(): void {}
+  constructor(private articleService: ArticleService) {}
 
-  start() {
-    alert('Commencez par lire le README et à vous de jouer !');
+  ngOnInit(): void {
+    this.loadArticles();
+  }
+
+  loadArticles(): void {
+    this.articleService.getAllArticles().subscribe({
+      next: (data) => {
+        this.articles = data;
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des articles', err);
+        this.message = 'Erreur lors du chargement des articles';
+      }
+    });
   }
 }
