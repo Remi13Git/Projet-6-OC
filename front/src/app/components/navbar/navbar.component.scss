@@ -2,45 +2,68 @@
     padding: 10px;
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Aligne les éléments verticalement */
+    align-items: center;
     border-bottom: solid 1px black;
-  
+
     .logo {
       img {
-        height: 100px; /* Ajuste la taille du logo */
+        height: 100px;
       }
     }
-  
+
     .nav-items {
       list-style: none;
       display: flex;
+      align-items: center;
       padding: 0;
       margin: auto 0;
-  
+
       li {
-        margin-left: 20px; /* Espacement entre les éléments */
+        margin-left: 20px;
       }
 
       span {
+        font-size: 13px;
         color: #A40F0F;
       }
-  
+
       a {
         color: black;
+        font-size: 18px;
         text-decoration: none;
         padding: 10px;
         border-bottom: solid 1px transparent;
         transition: all 0.1s ease-in-out;
-  
         display: flex;
-        align-items: center; /* Centrer l'icône et le texte */
-  
-
-  
-        &:hover {
-          border-bottom: solid 1px #7451eb;
+        align-items: center;
+      }
+      .profile-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 60px;
+        height: 52px;
+        width: 52px;
+        color: #D9D9D9;
+        border-radius: 50%;
+        .test {
+          position: absolute;
+          height: 36px;
+          width: 33px;
+          background-color: #333;
+          color: #333;
+          z-index: -1;
         }
       }
+
+      // Ajoute une couleur spécifique au lien actif
+      .active-link {
+        color: #6C5CCF;
+      }
+
+      // Style spécifique pour l'icône du profil actif
+      .active-icon {
+        background-color: #6C5CCF;
+      }
     }
-  }
-  
+}

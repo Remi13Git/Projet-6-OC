@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -18,13 +19,15 @@ import { TopicsComponent } from './topics/topics.component';
 import { CreateArticleComponent } from './create-article/create-article.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ArticleDetailComponent } from './article-detail/article-detail.component';
+import { CustomButtonComponent } from './shared/custom-button/custom-button.component';
 
 @NgModule({
-  declarations: [AppComponent, ArticleComponent, RegisterComponent, LoginComponent, ProfilComponent, TopicsComponent, CreateArticleComponent, NavbarComponent, ArticleDetailComponent, HomeComponent],
+  declarations: [AppComponent, ArticleComponent, RegisterComponent, LoginComponent, ProfilComponent, TopicsComponent, CreateArticleComponent, NavbarComponent, ArticleDetailComponent, HomeComponent, CustomButtonComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatInputModule,
     MatButtonModule,
     MatIconModule,
     ReactiveFormsModule,

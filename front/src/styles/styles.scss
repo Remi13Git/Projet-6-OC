@@ -1,4 +1,74 @@
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Applique la font Inter globalement, même sur les éléments de Material Design */
+body {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif !important;
+  }
+
+  .mat-h1, .mat-title, .mat-typography .mat-h1, .mat-typography .mat-title, .mat-typography h1 {
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 700 !important; 
+    font-size: 24px;
+  }
+
+  .mat-h2, .mat-title, .mat-typography .mat-h2, .mat-typography .mat-title, .mat-typography h2 {
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 700 !important; 
+    font-size: 24px;
+  }
+
+  .mat-h3, .mat-title, .mat-typography .mat-h3, .mat-typography .mat-title, .mat-typography h3 {
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 700 !important; 
+    font-size: 16px;
+  }
+
+  .mat-button, .mat-card, .mat-input, .mat-select, .mat-form-field, .mat-checkbox, .mat-radio-button, .mat-slider {
+    font-family: 'Inter', sans-serif !important;
+  }
+
+  .mat-typography, .mat-body, .mat-caption, .mat-subheading, .mat-headline {
+    font-family: 'Inter', sans-serif !important;
+  }
+  label {
+    display: flex;
+    justify-content: left;
+    margin: 0;
+    font-size: 16px;
+  }
+  select, textarea, input {
+    min-width: 230px;
+    max-width: 230px;
+    font-size: 14px;
+    height: 50px;
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 0 10px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  select {
+    min-width: 250px;
+    appearance: none; 
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+  }
+  textarea {
+    resize: none;
+    width: 100%; 
+    height: 150px; 
+    padding: 10px; 
+    font-size: 14px; 
+    border-radius: 8px; 
+    border: 1px solid #000; 
+  }
+  input::placeholder, textarea::placeholder {
+    font-family: 'Inter', sans-serif;
+    color: #000;
+  }
+
+  
+  

@@ -3,7 +3,9 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-  }a.center {
+  }
+  
+  a.center {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,9 +19,6 @@
     gap: 100px; /* Espacement entre les boutons */
     margin-top: 20px; /* Espacement entre le logo et les boutons */
   }
+
   
-  button {
-    font-size: 1rem; /* Taille des boutons */
-    padding: 10px 20px; /* Espace interne des boutons */
-  }
   

@@ -39,7 +39,7 @@ export class LoginComponent {
                 if (error.status === 403) {
                     this.message = 'Accès refusé, veuillez vérifier vos identifiants';
                 } else {
-                    this.message = error?.error?.message || 'Erreur lors de la connexion';
+                    this.message = error?.error?.message || 'Veuillez vérifier vos identifiants';
                 }
             }
         });

@@ -5,10 +5,16 @@
     
     <ul class="nav-items" *ngIf="shouldDisplayNavItems">
       <li><a routerLink="/login" (click)="logout()"><span>Se déconnecter</span></a></li>
-      <li><a routerLink="/article">Articles</a></li>
-      <li><a routerLink="/topics">Thèmes</a></li>
-      <li><a routerLink="/profil"><mat-icon>account_circle</mat-icon></a></li>
-      
+      <li>
+        <a routerLink="/article" [ngClass]="{'active-link': activeRoute === '/article'}">Articles</a>
+      </li>
+      <li>
+        <a routerLink="/topics" [ngClass]="{'active-link': activeRoute === '/topics'}">Thèmes</a>
+      </li>
+      <li>
+        <a routerLink="/profil">
+          <mat-icon class="profile-icon" [ngClass]="{'active-icon': activeRoute === '/profil'}">account_circle<div class="test">"</div></mat-icon>
+        </a>
+      </li>
     </ul>
-  </nav>
-  
+</nav>

@@ -4,26 +4,29 @@
       <mat-icon>arrow_back</mat-icon> <!-- Icône de retour (Material Icons) -->
     </button>
   
-    <h2>Connexion</h2>
+    <h2>Se connecter</h2>
     
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div>
-        <label for="identifier">E-mail ou nom d'utilisateur</label><br>
+        <label for="identifier">E-mail ou nom d'utilisateur</label>
         <input id="identifier" type="text" formControlName="identifier">
         <div *ngIf="loginForm.get('identifier')?.invalid && loginForm.get('identifier')?.touched">
-          Ce champ est requis.
         </div>
       </div>
   
       <div>
-        <label for="password">Mot de passe</label><br>
+        <label for="password">Mot de passe</label>
         <input id="password" type="password" formControlName="password">
         <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-          Le mot de passe est requis.
         </div>
       </div>
-      <br> 
-      <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
+      <app-custom-button 
+        text="Se connecter" 
+        type="primary"
+        [disabled]="loginForm.invalid"
+        (clicked)="onSubmit()">
+      </app-custom-button>
+
     </form>
     <p>{{ message }}</p>
   </div>

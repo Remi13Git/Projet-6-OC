@@ -51,4 +51,8 @@ export class ArticleComponent implements OnInit {
     this.sortOrder = this.sortOrder === 'desc' ? 'asc' : 'desc'; 
     this.loadArticles(); // Recharger les articles avec le nouveau tri
   }
+
+  navigateTo(route: string) {
+    this.router.navigate([route]);
+  }
 }
