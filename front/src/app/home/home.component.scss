@@ -20,5 +20,19 @@
     margin-top: 20px; /* Espacement entre le logo et les boutons */
   }
 
+  @media (max-width: 650px) {
+    .center {
+      padding-top: 100px;
+    }
+    
+    img {
+      height: 200px;
+    }
+    .buttons-container {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+
   
   

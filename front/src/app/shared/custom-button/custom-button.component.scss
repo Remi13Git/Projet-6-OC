@@ -34,7 +34,7 @@ a {
     border: 1px solid black;
   }
 
-  /* Bouton tertiaire désactivé (garde le texte blanc même lorsqu'il est désactivé) */
+  /* Bouton tertiaire disabled (garde le texte blanc même lorsqu'il est désactivé) */
   .tertiary:disabled {
     background-color: #939393;  /* Conserve la couleur de fond */
     color: white !important;  /* Conserve la couleur de texte blanc */

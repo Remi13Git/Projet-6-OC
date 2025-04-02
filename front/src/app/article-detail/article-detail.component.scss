@@ -49,10 +49,6 @@
     margin-inline-start: 40px;
   }
   
-
-  
-
-
   textarea::placeholder {
     color: #8A8C8C;
   }
@@ -75,7 +71,7 @@
     }
     p:nth-child(2) {
         width: 85%; 
-      }
+    }
   
     span {
       display: block;
@@ -123,6 +119,43 @@
 
         &:hover {
             color: #54468c;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 650px) {
+    .article-container {
+      margin: 20px auto;
+      .comments-section {
+        margin-inline-start: 0px;
+        margin-top: 20px;
+      }
+  
+      .article-data{
+        margin-inline-start: 0px;
+
+        h1 {
+          margin-inline-start: 40px;
+        }
+      }
+      .comment-card {
+        flex-direction: column;
+        gap: 0;
+        margin-bottom: 0;
+        padding: 0;
+
+        p:first-child {
+          text-align: right;
+          width: 90%;
+        }
+
+        p:nth-child(2) {
+          width: 90%; 
+      }
+
+        span {
+          margin-right: 0px;
         }
       }
     }

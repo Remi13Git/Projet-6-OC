@@ -1,20 +1,35 @@
 <nav *ngIf="shouldDisplayNavbar" class="navbar">
-    <div class="logo">
-      <img src="/assets/logo_p6.png" alt="Logo" />
-    </div>
-    
-    <ul class="nav-items" *ngIf="shouldDisplayNavItems">
-      <li><a routerLink="/login" (click)="logout()"><span>Se déconnecter</span></a></li>
-      <li>
-        <a routerLink="/article" [ngClass]="{'active-link': activeRoute === '/article'}">Articles</a>
-      </li>
-      <li>
-        <a routerLink="/topics" [ngClass]="{'active-link': activeRoute === '/topics'}">Thèmes</a>
-      </li>
-      <li>
-        <a routerLink="/profil">
-          <mat-icon class="profile-icon" [ngClass]="{'active-icon': activeRoute === '/profil'}">account_circle<div class="test">"</div></mat-icon>
-        </a>
-      </li>
+  <div class="logo">
+    <img src="/assets/logo_p6.png" alt="Logo" />
+  </div>
+
+  <!-- Icône Hamburger visible seulement en mode mobile -->
+  <mat-icon class="hamburger-menu" (click)="toggleMenu()">menu</mat-icon>
+
+  <!-- Liste des liens, cachée en mobile et affichée en desktop -->
+  <ul class="nav-items" *ngIf="shouldDisplayNavItems && !isMobile">
+    <li><a routerLink="/login" (click)="logout()"><span>Se déconnecter</span></a></li>
+    <li><a routerLink="/article" [ngClass]="{'active-link': activeRoute === '/article'}">Articles</a></li>
+    <li><a routerLink="/topics" [ngClass]="{'active-link': activeRoute === '/topics'}">Thèmes</a></li>
+    <li>
+      <a routerLink="/profil">
+        <mat-icon class="profile-icon" [ngClass]="{'active-icon': activeRoute === '/profil'}">account_circle<div class="profile-color"></div> </mat-icon>
+      </a>
+    </li>
+  </ul>
+
+  <!-- Menu aside (Mobile) -->
+  <div class="mobile-menu-overlay" *ngIf="isMobile && menuOpen" (click)="closeMenu()"></div>
+  <aside class="mobile-menu" *ngIf="isMobile && menuOpen">
+    <ul>
+      <li><a routerLink="/login" (click)="logout(); closeMenu()"><span>Se déconnecter</span></a></li>
+      <li><a routerLink="/article" [ngClass]="{'active-link': activeRoute === '/article'}" (click)="closeMenu()">Articles</a></li>
+      <li><a routerLink="/topics" [ngClass]="{'active-link': activeRoute === '/topics'}" (click)="closeMenu()">Thèmes</a></li>
     </ul>
+    <div class="profile-bottom">
+      <a routerLink="/profil" (click)="closeMenu()">
+        <mat-icon class="profile-icon" [ngClass]="{'active-icon': activeRoute === '/profil'}">account_circle</mat-icon>
+      </a>
+    </div>
+  </aside>
 </nav>
