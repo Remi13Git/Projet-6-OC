@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
@@ -9,10 +9,12 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-
+  
   shouldDisplayNavItems: boolean = true;
   shouldDisplayNavbar: boolean = true;
-  activeRoute: string = '';  // Stocke la route active
+  activeRoute: string = '';
+  isMobile: boolean = false;
+  menuOpen: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) { }
 
@@ -20,19 +22,25 @@ export class NavbarComponent implements OnInit {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
-      this.activeRoute = event.urlAfterRedirects; // Récupère la route active
+      this.activeRoute = event.urlAfterRedirects;
       this.updateNavbarDisplay();
       this.updateNavItemsDisplay();
     });
 
     this.updateNavbarDisplay();
     this.updateNavItemsDisplay();
+    this.checkScreenSize();
   }
 
   updateNavbarDisplay(): void {
     const currentRoute = this.router.url;
-    this.shouldDisplayNavbar = currentRoute !== '/';
+    const isAuthPage = currentRoute === '/login' || currentRoute === '/register';
+  
+    // La navbar est cachée sur la route "/"
+    // Elle est aussi cachée sur "/login" et "/register" si l'écran est inférieur à 650px
+    this.shouldDisplayNavbar = !(currentRoute === '/' || (this.isMobile && isAuthPage));
   }
+  
 
   updateNavItemsDisplay(): void {
     const currentRoute = this.router.url;
@@ -42,5 +50,21 @@ export class NavbarComponent implements OnInit {
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/']);
+  }
+
+  // Ouvrir / Fermer le menu mobile
+  toggleMenu(): void {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  closeMenu(): void {
+    this.menuOpen = false;
+  }
+
+  // Vérifie la taille de l'écran et met à jour la navbar
+  @HostListener('window:resize', ['$event'])
+  checkScreenSize(): void {
+    this.isMobile = window.innerWidth <= 650;
+    this.updateNavbarDisplay();  // Vérifie si la navbar doit être cachée
   }
 }

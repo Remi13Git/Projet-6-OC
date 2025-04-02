@@ -5,6 +5,10 @@
   background-color: #fff;
   text-align: center; /* Centre le texte à l'intérieur */
   position: relative;
+
+  .logo {
+    display: none;
+  }
   
   /* Style du bouton de retour */
   .back-button {
@@ -34,5 +38,20 @@
     margin: auto;
     max-width: 250px;
     gap: 20px;
+  }
+
+  @media (max-width: 650px) {
+    .back-button {
+      top: -20px;
+    }
+
+    .logo {
+      display: flex;
+      justify-content: center;
+    }
+      
+    img {
+      height: 200px;
+    }
   }
 }
