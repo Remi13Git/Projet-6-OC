@@ -4,31 +4,37 @@
       <mat-icon>arrow_back</mat-icon>
     </button>
     
+    <div class="article-data">
     <h1>{{ article.title }}</h1>
-    <p><strong>Date de création :</strong> {{ article.createdAt | date:'long' }}</p>
-    <p><strong>Auteur :</strong> {{ article.author.username }}</p>
-    <p><strong>Thème :</strong> {{ article.topic.name }}</p>
+    <div class="data-container">
+        <p>{{ article.createdAt | date:'d MMMM y' }}</p>
+        <p>{{ article.author.username }}</p>
+        <p>{{ article.topic.name }}</p>
+    </div>
+    
     <p class="content">{{ article.content }}</p>
   </div>
   
-  <hr />
-  
   <div class="comments-section">
-    <h2>Commentaires</h2>
-    <div *ngIf="comments.length > 0; else noComments">
-      <div class="comment-card" *ngFor="let comment of comments">
-        <p>{{ comment.user.username }}</p>
-        <p>{{ comment.content }}</p>
-      </div>
+    <p>Commentaires</p>
+    <div class="low-section">
+        <div class="no-comments" *ngIf="comments.length > 0; else noComments">
+        <div class="comment-card" *ngFor="let comment of comments">
+            <p>{{ comment.user.username }}</p>
+            <p><span>{{ comment.content }}</span></p>
+        </div>
+        </div>
+        <ng-template #noComments>
+            <p>Aucun commentaire pour le moment.</p>
+        </ng-template>
+    
+        <form class="comments-form" [formGroup]="commentForm" (ngSubmit)="onSubmitComment()">
+        <textarea formControlName="content" placeholder="Écrivez ici votre commentaire"></textarea>
+        <button mat-icon-button type="submit" [disabled]="commentForm.invalid">
+            <mat-icon class="rotated-icon">send</mat-icon>
+        </button>      
+        </form>
+        <p>{{ commentMessage }}</p>
     </div>
-    <ng-template #noComments>
-      <p>Aucun commentaire pour le moment.</p>
-    </ng-template>
-  
-    <form [formGroup]="commentForm" (ngSubmit)="onSubmitComment()">
-      <textarea formControlName="content" placeholder="Écrivez ici votre commentaire"></textarea>
-      <button type="submit" [disabled]="commentForm.invalid">Envoyer</button>
-    </form>
-    <p>{{ commentMessage }}</p>
   </div>
   

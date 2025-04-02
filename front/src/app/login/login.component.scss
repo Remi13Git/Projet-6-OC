@@ -1,10 +1,9 @@
 .login-container {
     width: 100%;
-    max-width: 400px; /* Limite la largeur du formulaire */
+    max-width: 90%;
     margin: 50px auto; /* Centre horizontalement */
     padding: 20px;
     background-color: #fff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     text-align: center; /* Centre le texte à l'intérieur */
     position: relative;
@@ -24,9 +23,20 @@
       }
   }
 
-  
   .back-btn mat-icon {
-    font-size: 30px; /* Taille de l'icône */
+    font-size: 40px; /* Taille de l'icône */
+    height: 40px;
+    width: 40px;
   }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    max-width: 250px;
+    gap: 20px;
+  }
+  
   
   

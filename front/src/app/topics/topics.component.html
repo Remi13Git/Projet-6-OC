@@ -3,9 +3,12 @@
       <div class="topic-card" *ngFor="let topic of topics">
         <h3>{{ topic.name }}</h3>
         <p>{{ topic.description }}</p>
-        <button (click)="onSubscribe(topic.id)" [disabled]="isSubscribed(topic.id)">
-          {{ isSubscribed(topic.id) ? "Déjà abonné" : "S'abonner" }}
-        </button>
+        <app-custom-button 
+            [text]="isSubscribed(topic.id) ? 'Déjà abonné' : 'S\'abonner'" 
+            [type]="isSubscribed(topic.id) ? 'tertiary' : 'primary'"
+            [disabled]="isSubscribed(topic.id)"
+            (clicked)="isSubscribed(topic.id) ? null : onSubscribe(topic.id)">
+        </app-custom-button>
       </div>
     </div>
   </div>
