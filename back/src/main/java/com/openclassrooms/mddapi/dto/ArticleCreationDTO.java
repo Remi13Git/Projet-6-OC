@@ -1,7 +1,7 @@
 package com.openclassrooms.mddapi.dto;
 
 public class ArticleCreationDTO {
-    private Integer topicId;  // Changez ici en Integer
+    private Integer topicId;
 
     private String title;
     private String content;

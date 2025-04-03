@@ -28,7 +28,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) // Désactive CSRF
+            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/register", "/api/login").permitAll() // Routes publiques
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Permet OPTIONS pour CORS
@@ -45,7 +45,6 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        // Utilise addAllowedOriginPattern pour autoriser l'origine
         corsConfiguration.addAllowedOriginPattern("http://localhost:4200");
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");

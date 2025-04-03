@@ -3,7 +3,7 @@ package com.openclassrooms.mddapi.dto;
 public class UserProfileDTO {
     private String email;
     private String username;
-    private String password; // Ce champ sera renseigné si l'utilisateur souhaite changer son mot de passe
+    private String password;
 
     // Getters et setters
     public String getEmail() {
