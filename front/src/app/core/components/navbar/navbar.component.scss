@@ -1,0 +1,170 @@
+.navbar {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: solid 1px black;
+  position: relative;
+
+  .logo img {
+    height: 100px;
+  }
+
+  .nav-items {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: auto 0;
+
+    li {
+      margin-left: 20px;
+    }
+
+    span {
+      font-size: 13px;
+      color: #A40F0F;
+    }
+
+    a {
+      color: black;
+      font-size: 18px;
+      text-decoration: none;
+      padding: 10px;
+      border-bottom: solid 1px transparent;
+      transition: all 0.1s ease-in-out;
+      display: flex;
+      align-items: center;
+    }
+
+    .profile-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      height: 52px;
+      width: 52px;
+      color: #D9D9D9;
+      border-radius: 50%;
+      .profile-color {
+        position: absolute;
+        height: 36px;
+        width: 33px;
+        background-color: #333;
+        color: #333;
+        z-index: -1;
+      }
+    }
+
+    .active-link {
+      color: #6C5CCF;
+    }
+
+    .active-icon {
+      background-color: #6C5CCF;
+    }
+  }
+
+  .hamburger-menu {
+    font-size: 30px;
+    display: none;
+    cursor: pointer;
+  }
+
+  @media (max-width: 650px) {
+    .nav-items {
+      display: none;
+    }
+
+    .hamburger-menu {
+      display: block;
+      height: 100%;
+      width: 35px;
+    }
+    
+    .logo img {
+      height: 60px;
+    }
+  }
+}
+
+/* Styles du menu mobile */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 60%;
+  height: 100%;
+  text-align: right;
+  background: white;
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  padding: 40px 10px;
+  z-index: 1000;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    padding: 5px 0;
+  }
+
+  a {
+    color: black;
+    font-size: 20px;
+    text-decoration: none;
+  }
+
+  span {
+    font-size: 14px;
+    color: #A40F0F;
+  }
+
+  .active-link {
+    color: #6C5CCF;
+  }
+
+  .profile-bottom {
+    margin-top: auto;
+    margin-bottom: 20px;
+    margin-left: auto;
+
+    .profile-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      height: 56px;
+      width: 56px;
+      color: #D9D9D9;
+      margin-bottom: 25px;
+    }
+
+    .active-icon {
+      background-color: #6C5CCF;
+      border-radius: 50%;
+    }
+  }
+}
+
+/* Overlay pour fermer le menu en cliquant à l'extérieur */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+//Très petits écrans 
+@media (max-width: 320px) {
+  .mobile-menu {
+    width: 50%;
+  }
+}

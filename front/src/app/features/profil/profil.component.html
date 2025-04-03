@@ -1,0 +1,42 @@
+<div class="profil-container">
+    <div class="profil-data">
+        <h2>Profil utilisateur</h2>
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <div>
+            <input id="username" type="text" formControlName="username" placeholder="Username">
+        </div>
+        <div>
+            <input id="email" type="email" formControlName="email" placeholder="email@email.fr">
+        </div>
+        <div>
+            <input id="password" type="password" formControlName="password" placeholder="Nouveau mot de passe"><br>
+            {{ passwordMessage }}
+        </div>
+
+        <app-custom-button 
+            text="Sauvegarder" 
+            type="primary"
+            [disabled]="profileForm.invalid"
+            (clicked)="onSubmit()">
+        </app-custom-button>
+
+        <p>{{ message }}</p>
+        </form>
+    </div>
+  
+    <!-- Section pour afficher les thèmes abonnés -->
+    <div class="subscriptions-grid" *ngIf="subscribedTopics && subscribedTopics.length">
+        <h2>Abonnements</h2>
+        <div class="grid">
+          <div class="topic-card" *ngFor="let topic of subscribedTopics">
+            <h3>{{ topic.name }}</h3>
+            <p>{{ topic.description }}</p>
+            <app-custom-button 
+                text="Se désabonner" 
+                type="primary"
+                (clicked)="unsubscribe(topic.id)">
+            </app-custom-button>
+          </div>
+        </div>
+    </div>      
+</div>

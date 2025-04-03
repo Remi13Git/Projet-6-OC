@@ -1,0 +1,45 @@
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  a.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center; /* Centrer le texte du logo */
+  }
+  
+  .buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 100px; /* Espacement entre les boutons */
+    margin-top: 20px; /* Espacement entre le logo et les boutons */
+  }
+
+  @media (max-width: 650px) {
+    .center {
+      padding-top: 100px;
+    }
+    
+    img {
+      height: 200px;
+    }
+    .buttons-container {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+
+  //Très petits écrans 
+  @media (max-width: 320px) {
+    img {
+      height: 150px;
+    }
+  }
+
+  
+  

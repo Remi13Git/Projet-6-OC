@@ -27,6 +27,7 @@ import com.openclassrooms.mddapi.models.User;
 import com.openclassrooms.mddapi.repository.SubscriptionRepository;
 import com.openclassrooms.mddapi.repository.TopicRepository;
 import com.openclassrooms.mddapi.repository.UserRepository;
+import com.openclassrooms.mddapi.security.JwtUtil;
 
 
 @RestController
@@ -39,6 +40,9 @@ public class ProfileController {
 
     @Autowired
     private TopicRepository topicRepository;
+
+    @Autowired
+    private JwtUtil jwtUtil;
     
     @Autowired
     private SubscriptionRepository subscriptionRepository;
@@ -94,10 +98,12 @@ public class ProfileController {
         if (userDetails == null) {
             return ResponseEntity.status(401).body(Map.of("error", "Non authentifié"));
         }
+
         User user = userRepository.findByUsername(userDetails.getUsername());
         if (user == null) {
             return ResponseEntity.badRequest().body(Map.of("error", "Utilisateur non trouvé"));
         }
+
         // Mettre à jour l'email et le username si fournis
         if (profileDTO.getEmail() != null && !profileDTO.getEmail().isEmpty()) {
             user.setEmail(profileDTO.getEmail());
@@ -105,42 +111,53 @@ public class ProfileController {
         if (profileDTO.getUsername() != null && !profileDTO.getUsername().isEmpty()) {
             user.setUsername(profileDTO.getUsername());
         }
+
         // Mettre à jour le mot de passe s'il est fourni
         if (profileDTO.getPassword() != null && !profileDTO.getPassword().isEmpty()) {
             user.setPassword(passwordEncoder.encode(profileDTO.getPassword()));
         }
+
+        // Sauvegarder les modifications dans la base de données
         userRepository.save(user);
-        return ResponseEntity.ok(Map.of("message", "Profil mis à jour avec succès"));
+
+        // Générer un nouveau token après la mise à jour du profil
+        String token = jwtUtil.generateToken(user.getUsername());
+
+        // Retourner la réponse avec le message de succès et le nouveau token
+        return ResponseEntity.ok(Map.of(
+            "message", "Profil mis à jour avec succès",
+            "token", token  // Renvoi du nouveau token
+        ));
     }
 
     @DeleteMapping("/subscriptions/{topicId}")
-public ResponseEntity<?> unsubscribeFromTopic(@AuthenticationPrincipal UserDetails userDetails,
-                                              @PathVariable Integer topicId) {
-    if (userDetails == null) {
-        return ResponseEntity.status(401).body(Map.of("error", "Non authentifié"));
-    }
+    public ResponseEntity<?> unsubscribeFromTopic(@AuthenticationPrincipal UserDetails userDetails,
+                                                @PathVariable Integer topicId) {
+        if (userDetails == null) {
+            return ResponseEntity.status(401).body(Map.of("error", "Non authentifié"));
+        }
 
-    User user = userRepository.findByUsername(userDetails.getUsername());
-    if (user == null) {
-        return ResponseEntity.badRequest().body(Map.of("error", "Utilisateur non trouvé"));
-    }
+        User user = userRepository.findByUsername(userDetails.getUsername());
+        if (user == null) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Utilisateur non trouvé"));
+        }
 
-    // Vérifier si le topic existe
-    Optional<Topic> topicOpt = topicRepository.findById(topicId);
-    if (topicOpt.isEmpty()) {
-        return ResponseEntity.badRequest().body(Map.of("error", "Thème non trouvé"));
-    }
-    Topic topic = topicOpt.get(); // Récupération de l'objet Topic existant
+        // Vérifier si le topic existe
+        Optional<Topic> topicOpt = topicRepository.findById(topicId);
+        if (topicOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Thème non trouvé"));
+        }
+        Topic topic = topicOpt.get(); // Récupération de l'objet Topic existant
 
-    // Trouver l'abonnement correspondant
-    Optional<Subscription> subscriptionOpt = subscriptionRepository.findByUserAndTopic(user, topic);
-    if (subscriptionOpt.isPresent()) {
-        subscriptionRepository.delete(subscriptionOpt.get());
-        return ResponseEntity.ok(Map.of("message", "Désabonnement réussi"));
-    } else {
-        return ResponseEntity.badRequest().body(Map.of("error", "Abonnement non trouvé"));
+        // Trouver l'abonnement correspondant
+        Optional<Subscription> subscriptionOpt = subscriptionRepository.findByUserAndTopic(user, topic);
+        if (subscriptionOpt.isPresent()) {
+            subscriptionRepository.delete(subscriptionOpt.get());
+            return ResponseEntity.ok(Map.of("message", "Désabonnement réussi"));
+        } else {
+            return ResponseEntity.badRequest().body(Map.of("error", "Abonnement non trouvé"));
+        }
     }
-}
 
     
 }
