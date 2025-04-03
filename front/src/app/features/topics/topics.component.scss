@@ -1,0 +1,47 @@
+.topics-container {
+    padding: 16px;
+  }
+  
+  .error {
+    color: red;
+    margin-bottom: 16px;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+  
+  .topic-card {
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #F5F5F5;
+
+    h3 {
+        font-weight: 700;
+    }
+
+    p {
+        max-height: 100px;          
+        overflow: hidden;           
+        text-overflow: ellipsis;    
+        display: -webkit-box;       
+        -webkit-line-clamp: 4;      
+        -webkit-box-orient: vertical; 
+        word-wrap: break-word;      
+    }
+  }
+
+  //Très petits écrans 
+  @media (max-width: 320px) {
+    .topics-container {
+      padding: 16px 0;
+    }
+    .topic-card {
+      width: 70%;
+      margin: auto;
+    }
+  }
+
+  
