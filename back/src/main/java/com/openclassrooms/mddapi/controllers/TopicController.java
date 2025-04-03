@@ -4,10 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.openclassrooms.mddapi.models.Topic;
-import com.openclassrooms.mddapi.repository.TopicRepository;
+import com.openclassrooms.mddapi.services.TopicService;
 
 @RestController
 @RequestMapping("/api/topics")
@@ -15,11 +18,10 @@ import com.openclassrooms.mddapi.repository.TopicRepository;
 public class TopicController {
 
     @Autowired
-    private TopicRepository topicRepository;
+    private TopicService topicService;
 
     @GetMapping
     public ResponseEntity<List<Topic>> getAllTopics() {
-        List<Topic> topics = topicRepository.findAll();
-        return ResponseEntity.ok(topics);
+        return ResponseEntity.ok(topicService.getAllTopics());
     }
 }

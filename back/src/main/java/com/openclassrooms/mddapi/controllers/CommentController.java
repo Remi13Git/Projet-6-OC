@@ -1,20 +1,19 @@
 package com.openclassrooms.mddapi.controllers;
 
-import com.openclassrooms.mddapi.dto.CommentDTO;
-import com.openclassrooms.mddapi.models.Article;
-import com.openclassrooms.mddapi.models.Comment;
-import com.openclassrooms.mddapi.models.User;
-import com.openclassrooms.mddapi.repository.ArticleRepository;
-import com.openclassrooms.mddapi.repository.CommentRepository;
-import com.openclassrooms.mddapi.repository.UserRepository;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
-import java.util.List;
-import java.util.Map;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.openclassrooms.mddapi.dto.CommentDTO;
+import com.openclassrooms.mddapi.services.CommentService;
 
 @RestController
 @RequestMapping("/api/comments")
@@ -22,46 +21,17 @@ import java.util.Map;
 public class CommentController {
 
     @Autowired
-    private CommentRepository commentRepository;
-    
-    @Autowired
-    private ArticleRepository articleRepository;
-    
-    @Autowired
-    private UserRepository userRepository;
+    private CommentService commentService;
 
-    // Endpoint pour récupérer les commentaires d'un article
     @GetMapping("/article/{articleId}")
     public ResponseEntity<?> getCommentsByArticle(@PathVariable Integer articleId) {
-        List<Comment> comments = commentRepository.findByArticleId(articleId);
-        return ResponseEntity.ok(comments);
+        return commentService.getCommentsByArticle(articleId);
     }
 
-    // Endpoint pour ajouter un commentaire à un article
     @PostMapping("/article/{articleId}")
     public ResponseEntity<?> addComment(@PathVariable Integer articleId,
-                                        @Valid @RequestBody CommentDTO commentDTO,
+                                        @RequestBody CommentDTO commentDTO,
                                         @AuthenticationPrincipal UserDetails userDetails) {
-        if (userDetails == null) {
-            return ResponseEntity.status(401).body(Map.of("error", "Utilisateur non authentifié"));
-        }
-
-        Article article = articleRepository.findById(articleId).orElse(null);
-        if (article == null) {
-            return ResponseEntity.badRequest().body(Map.of("error", "Article non trouvé"));
-        }
-
-        User user = userRepository.findByUsername(userDetails.getUsername());
-        if (user == null) {
-            return ResponseEntity.badRequest().body(Map.of("error", "Utilisateur non trouvé"));
-        }
-
-        Comment comment = new Comment();
-        comment.setContent(commentDTO.getContent());
-        comment.setArticle(article);
-        comment.setUser(user);
-
-        commentRepository.save(comment);
-        return ResponseEntity.ok(Map.of("message", "Commentaire ajouté avec succès"));
+        return commentService.addComment(articleId, commentDTO, userDetails);
     }
 }

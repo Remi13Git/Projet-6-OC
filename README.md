@@ -1,25 +1,62 @@
-# P6-Full-Stack-reseau-dev
+# Monde De Dev
 
-## Front
+## Prérequis
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+- [Java 23](https://openjdk.java.net/)
+- [Node.js et npm](https://nodejs.org/en/download/)
+- [MySQL](https://dev.mysql.com/downloads/installer/)
+- [Angular CLI 14](https://angular.io/cli)
 
-Don't forget to install your node_modules before starting (`npm install`).
+## Importation du projet
 
-### Development server
+1. Clonez le repository du projet.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+    ```bash
+    git clone https://github.com/Remi13Git/Projet-6-OC.git
+    ```
 
-### Build
+2. Importez le projet dans votre IDE préféré (par exemple, IntelliJ IDEA ou Eclipse) en tant que projet Maven.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+3. Configurer le fichier `application.properties` pour la connexion à la base de données
 
-### Where to start
+Pour créer votre base de données MySQL, utilisez le schema présent dans `ressources/sql/script.sql`
 
-As you may have seen if you already started the app, a simple home page containing a logo, a title and a button is available. If you take a look at its code (in the `home.component.html`) you will see that an external UI library is already configured in the project.
+Dans le fichier `src/main/resources/application.properties`, vous devez configurer la connexion à votre base de données MySQL en remplaçant l'url, l'username et le password par vos propres données. 
 
-This library is `@angular/material`, it's one of the most famous in the angular ecosystem. As you can see on their docs (https://material.angular.io/), it contains a lot of highly customizable components that will help you design your interfaces quickly.
 
-Note: I recommend to use material however it's not mandatory, if you prefer you can get rid of it.
+## Installer les dépendances
 
-Good luck!
+Dans le terminal de votre IDE, exécutez la commande suivante pour télécharger et installer toutes les dépendances nécessaires à l'exécution du backend :
+
+```bash
+cd back
+mvn clean install
+```
+
+Ouvrez une nouvelle fenetre de votre IDE puis exécutez la commande suivante pour télécharger et installer toutes les dépendances nécessaires à l'exécution du frontend :
+
+```bash
+cd front
+npm install
+```
+
+## Lancer l'application
+
+Une fois les dépendances installées, vous pouvez démarrer le backend avec la commande suivante :
+
+```bash
+mvn spring-boot:run
+```
+
+
+Afin de démarrer le frontend, retournez sur votre fenetre Front et lancez le serveur avec la commande suivante : 
+
+```bash
+npm run start
+```
+
+Votre application sera accessible à l'adresse suivante :
+
+```bash
+http://localhost:4200
+```

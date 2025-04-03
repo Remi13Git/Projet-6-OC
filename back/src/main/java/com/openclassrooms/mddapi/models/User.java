@@ -29,10 +29,8 @@ public class User {
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    // Constructeur par défaut
     public User() {}
-
-    // Constructeur avec paramètres
+    
     public User(String email, String username, String password) {
         this.email = email;
         this.username = username;
